@@ -1,0 +1,68 @@
+1.TEMPLATES
+   -store.html
+      .latest items
+      .Search
+      .filter by categories
+      .categories
+      .footer
+      .After Login
+        -sell
+        -dashboard
+   -cart.html
+   -checkout.html
+   -base.html
+   - navbar.html
+      .Home 
+      .login/register
+      .cart
+      .sell
+   - detail.html
+   - sell.html
+      .dashboard
+      .categorires
+       .Add new items
+
+  REGISTRATION
+    -LOGIN
+    -SIGNUP
+2.VIEWS
+3.MODELS
+  -Categories
+     .name
+  -Product 
+     .Name
+     .Description
+     .Price
+     .Image
+     .Category
+     .Created
+     .Seller     
+  -Customer
+   .username
+   .name
+   .email
+  -Shipping Information
+    .customer
+    .cart
+    .address
+    .city
+    .state
+    .zipcode
+  -User
+  -Cart
+   .customer
+   .cart_id
+   .completed
+  - Cartitems
+    .cart
+    .product
+    .quantity
+
+4. Applications
+    -REGISTRATION
+    - STORE
+    - SELLER
+
+
+<img class="chg-quantity" src="{% static 'images/up.png' %}" style="width: 20px; cursor: pointer; margin-top: 5px; transition: .1s;">
+ <img class="chg-quantity" src="{% static 'images/down.png' %}" style="width: 20px; cursor: pointer; margin-top: 5px; transition: .1s;">

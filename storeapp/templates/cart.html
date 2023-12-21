@@ -1,0 +1,108 @@
+{% extends 'base.html'%}
+{%load static%}
+<link rel="stylesheet"  type="text/css" href="{% static 'css/main.css'%}">
+{% block content %}
+
+
+ 
+ <br>
+ <br>
+
+<table class="table table-borderless table-light">
+    <thead>
+      <tr>
+        <th scope="col"><a   href="{% url 'storeapp:store' %}" class="btn btn-outline-warning update-cart"> &#x2190; Continue Shopping</a></th>
+         
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Items:{{cart.items_total}}</td>
+        <td>Total: ${{cart.get_cart_total |floatformat:2 }}</td>
+        <td></td>
+        <td scope="col"
+         ><a  style="text-align: end; float: right;  margin: 5px;" href="{% url 'storeapp:checkout' %} " class="btn btn-outline-success">Checkout</a></td>
+      </tr>
+       
+       
+    </tbody>
+  </table>
+<br>
+
+
+<table class="table table-borderless table-light">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Item</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity
+            
+    </th>
+
+
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for products in cartitems %}
+      <tr>
+        <th scope="row">
+          {% if products.product.Image %}
+          <img src="{{ products.product.Image.url }}" class="card-img-top" alt="Uploaded Image" style=" height: 50px; width: 50px;">
+          {% else %}
+          <img src="{% static 'path/to/default/image.jpg' %}" class="card-img-top" alt="Default Image" style="height: 50px;  width: 50px;;">
+          {% endif %}
+        </th>
+        <td><h3>{{products.product.Name}}</h3></td>
+        <td><h3>${{products.product.Price}}</h3></td>
+        <td>
+          <input type="number" class="quantity" value="{{products.quantity}}" style="width: 50px; padding-left:5px;">  
+             
+        </td>
+       
+        
+        
+        
+        <td><h3>${{products.get_total | floatformat:2  }}</h3></td>
+      </tr>
+      {% endfor %}
+       
+      
+    </tbody>
+  </table>
+
+  <script>
+    let quantityField = document.getElementsByClassName('quantity');
+
+for (let i = 0; i < quantityField.length; i++) {
+    quantityField[i].addEventListener('change', function () {
+        let quantityFieldValue = quantityField[i].value;
+        let quantityFieldProduct = quantityField[i].parentElement.parentElement.children[1].children[0].innerText;
+        let url = "/updateQuantity/";
+        console.log("Quantity Field Value:", quantityFieldValue);
+        console.log("Quantity Field Product:", quantityFieldProduct);
+        location.reload()
+        console.log("URL:", url);
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({
+                "qfv": quantityFieldValue,
+                "qfp": quantityFieldProduct,
+            })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data));
+    });
+}
+</script>
+  
+{% endblock %}
+

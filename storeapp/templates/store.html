@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container">
+    <h3 class="text-center" style="text-align: center;">
+        {% if user.is_authenticated %}
+        Welcome, {{ user }}
+        {% else %}
+        Welcome Guest
+        {% endif %}
+    </h3>
+
+    <br>
+
+    <div class="row justify-content-center">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem; height: 100%;">
+                {% if product.Image %}
+                <img src="{{ product.Image.url }}" class="card-img-top" alt="Uploaded Image" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'path/to/default/image.jpg' %}" class="card-img-top" alt="Default Image" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ product.Name }}</h5>
+                    <hr>
+                    <p class="card-text">${{ product.Price }} </p>
+                    <div class="flex-nowrap">
+                        <a data-product="{{product.id}}" data-action="add" href="  " class="btn btn-outline-warning update-cart">Add to Cart</a>
+                        <a href="{% url 'storeapp:detail' product.id %}" class="btn btn-outline-success">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

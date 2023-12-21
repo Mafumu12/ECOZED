@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-md ">
+    <br>
+    <br>
+    <br>
+    <div class="card bg-body-tertiary">
+        <div class="card-body">
+            <br>
+            <br>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem; height: 100%;">
+                        {% if products.Image %}
+                        <img src="{{ products.Image.url }}" class="card-img-top" alt="Uploaded Image" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'path/to/default/image.jpg' %}" class="card-img-top" alt="Default Image" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="col-md-4"> <!-- Change the column width to half of the original size -->
+                    <div class="card bg-body-white">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Name: {{ products.Name }}</h5>
+                            <p class="card-text">Description: {{ products.Description }}</p>
+                            <p class="card-text">Price: ${{ products.Price }}</p>
+                            <div class="flex-nowrap">
+                                <a data-product="{{product.id}}" data-action="add" href="  " class="btn btn-outline-warning update-cart">Add to Cart</a>
+                                <a href="{%  url 'storeapp:checkout' %}" class="btn btn-outline-success">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <hr>
+            <h3 style="text-align: center;" class="card-title">Related Items</h3>
+            <hr>
+            <br>
+            <br>
+            <div class="row justify-content-center">
+                {% for cat in related_products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem; height: 100%;">
+                        {% if cat.Image %}
+                        <img src="{{ cat.Image.url }}" class="card-img-top rounded" alt="Uploaded Image" style="max-width: 100%; border-radius: 10px;">
+                        {% else %}
+                        <img src="{% static 'path/to/default/image.jpg' %}" class="card-img-top rounded" alt="Default Image" style="max-width: 100%; border-radius: 10px;">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{cat.Name}}</h5>
+                            <hr>
+                            <p class="card-text">${{cat.Price}} </p>
+                            <div class="flex-nowrap">
+                                <a data-product="{{product.id}}" data-action="add" href="  " class="btn btn-outline-warning update-cart">Add to Cart</a>
+                              <a href="{% url 'storeapp:detail' cat.id %} " class="btn btn-outline-success ">View</a>
+                                
+                            </div>
+                            <div class="flex-nowrap">
+                               
+                              
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+{% endblock %}

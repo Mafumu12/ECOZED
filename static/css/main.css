@@ -1,0 +1,37 @@
+.cart-icon {
+    width: 25px;
+    display: inline-block;
+    margin-left: 15px;
+
+}
+
+#cart-total {
+    display: block;
+    text-align: center;
+    color: #fff;
+    background-color: black;
+    width: 20px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+/* Your existing CSS rules here */
+
+.quantity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chg-quantity {
+    width: 20px;
+    /* Adjust the width as needed */
+    cursor: pointer;
+    margin-top: 5px;
+    transition: .1s;
+}
+
+.chg-quantity:hover {
+    opacity: .6;
+}

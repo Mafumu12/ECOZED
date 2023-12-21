@@ -1,0 +1,73 @@
+{% load static %}
+
+<link rel="stylesheet"  type="text/css" href="{% static 'css/main.css'%}">
+
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'storeapp:store'%}">ECOZED</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form method="get" action="{% url 'storeapp:store' %}" class="d-flex justify-content-center mx-auto" role="search">
+        <div class="input-group flex-nowrap">
+          <input name="items" class="form-control me-2" value="{{items}}" type="search" placeholder="Search" aria-label="Search">
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
+      </form>
+      <form method="get" action="{% url 'storeapp:store' %}" class="d-flex justify-content-center mx-auto" role="search">
+        <div class="input-group flex-nowrap">
+          <select name="categories" class="form-control" aria-describedby="addon-wrapping">
+            <option value="">All Categories</option>
+            <option value="Electronics"{% if categories == 'Electronics' %} selected{% endif %}>Electronics</option>
+            <option value="Toys"{% if categories == 'Toys' %} selected{% endif %}>Toys</option>
+            <option value="Shoes"{% if categories == 'Shoes' %} selected{% endif %}>Shoes</option>
+            <!-- Add more options for other categories as needed -->
+          </select>
+          <button type="submit" class="btn btn-warning">Filter by Categories</button>
+        </div>
+      </form>
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href=" {% url 'storeapp:cart'%}"><img class="cart-icon" src ="{% static 'images/cart.png'%}"></a>
+          
+        </li>
+        <p id="cart-total">{{ cart.items_total}}</p>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'seller:New_Item'%}">Newitem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'seller:dashboard'%}">Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'registration:logout' %}">Logout</a>
+        </li>
+        {%else%}
+ 
+        <li class="nav-item">
+          <a class="nav-link" href=" {% url 'storeapp:cart'%}"><img class="cart-icon" src ="{% static 'images/cart.png'%}"></a>
+          
+        </li>
+        <p id="cart-total">{{ cart.items_total}}</p
+
+         
+        
+        
+         
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'registration:user_login'%}">Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="{% url 'registration:user_login'%} ">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=" {% url 'registration:signup'%}  ">SignUp</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

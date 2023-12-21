@@ -1,0 +1,31 @@
+{% extends 'base.html'%} {% block content %}
+<h3>LOGIN</h3>
+
+<div class="container-md">
+  <div class="user-creation-form">
+    <h3>Create an Account</h3>
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- Apply custom styles to form fields -->
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Password</label>
+        {{ form.password1 }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+        {{ form.password2 }}
+      </div>
+
+      <!-- Apply custom styles to submit button -->
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
